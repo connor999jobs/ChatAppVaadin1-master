@@ -85,10 +85,16 @@ public class MainView extends VerticalLayout {
                                 });
                                 addClickShortcut(Key.ENTER);
                             }}
+
                     );
+
+                    add(new Button("Logout"){{
+                        addClickListener(click -> securityService.logout());
+                    }});
                 }}
 
         );
+
     }
 
     public void onMessage(Storage.ChatEvent event) {
