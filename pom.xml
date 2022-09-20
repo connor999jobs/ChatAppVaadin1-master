@@ -18,6 +18,7 @@
 		<vaadin.version>23.1.4</vaadin.version>
 	</properties>
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -111,16 +112,17 @@
 					<plugin>
 						<groupId>com.vaadin</groupId>
 						<artifactId>vaadin-maven-plugin</artifactId>
-						<version>8.7.0</version>
+						<version>${vaadin.version}</version>
 						<executions>
 							<execution>
 								<goals>
-									<goal>resources</goal>
-									<goal>update-widgetset</goal>
-									<goal>compile</goal>
+									<goal>prepare-frontend</goal>
 								</goals>
 							</execution>
 						</executions>
+						<configuration>
+							<nodeAutoUpdate>true</nodeAutoUpdate>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
