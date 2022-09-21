@@ -2,9 +2,11 @@ package com.example.ChatAppVaadin1.config;
 
 import com.example.ChatAppVaadin1.security.CustomRequestCache;
 import com.example.ChatAppVaadin1.security.SecurityUtils;
-import com.example.ChatAppVaadin1.service.AppUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 
@@ -25,7 +29,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String LOGOUT_SUCCESS_URL = "/login";
 
 
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    public SecurityConfig(@Lazy UserDetailsService userDetailsService, @Lazy PasswordEncoder bCryptPasswordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+    }
 
     /**
      * Require login to access internal pages and configure login form.
@@ -96,5 +112,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // (development mode) H2 debugging console
                 "/h2-console/**");
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
