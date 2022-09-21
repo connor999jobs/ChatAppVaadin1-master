@@ -2,6 +2,7 @@ package com.example.ChatAppVaadin1.config;
 
 import com.example.ChatAppVaadin1.security.CustomRequestCache;
 import com.example.ChatAppVaadin1.security.SecurityUtils;
+import com.example.ChatAppVaadin1.service.AppUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,6 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String LOGIN_FAILURE_URL = "/login?error";
     private static final String LOGIN_URL = "/login";
     private static final String LOGOUT_SUCCESS_URL = "/login";
+
+
+
 
     /**
      * Require login to access internal pages and configure login form.
