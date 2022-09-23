@@ -2,6 +2,7 @@ package com.example.ChatAppVaadin1.config;
 
 import com.example.ChatAppVaadin1.security.CustomRequestCache;
 import com.example.ChatAppVaadin1.security.SecurityUtils;
+import com.example.ChatAppVaadin1.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,29 +19,26 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
     private static final String LOGIN_PROCESSING_URL = "/login";
     private static final String LOGIN_FAILURE_URL = "/login?error";
     private static final String LOGIN_URL = "/login";
     private static final String LOGOUT_SUCCESS_URL = "/login";
 
 
-    private final UserDetailsService userDetailsService;
-    private final PasswordEncoder bCryptPasswordEncoder;
+
+    private AppUserService userService;
 
     @Autowired
-    public SecurityConfig(@Lazy UserDetailsService userDetailsService, @Lazy PasswordEncoder bCryptPasswordEncoder) {
-        this.userDetailsService = userDetailsService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    public SecurityConfig(AppUserService userService) {
+        this.userService = userService;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
     /**
@@ -63,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Allow all requests by logged-in users.
                 .anyRequest().authenticated()
 
+                .and().oauth2Login().loginPage(LOGIN_URL).permitAll()
                 // Configure the login page.
                 .and().formLogin()
                 .loginPage(LOGIN_URL).permitAll()
@@ -71,19 +70,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // Configure logout
                 .and().logout().logoutSuccessUrl(LOGOUT_SUCCESS_URL);
-        http.oauth2Login().loginPage(LOGIN_URL).permitAll();
+
+
     }
 
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withUsername("user")
-                .password("{noop}userpass")
-                .roles("USER")
-                .build();
 
-        return new InMemoryUserDetailsManager(user);
-    }
 
     /**
      * Allows access to static resources, bypassing Spring Security.
@@ -114,8 +105,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/h2-console/**");
     }
 
+
+
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 }
