@@ -1,5 +1,7 @@
 package com.example.ChatAppVaadin1.service;
 
+import com.example.ChatAppVaadin1.model.user.AppUser;
+import com.example.ChatAppVaadin1.model.user.AppUserRole;
 import com.example.ChatAppVaadin1.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +23,11 @@ public class AppUserService implements UserDetailsService {
         return appUserRepository
                 .findByName(username)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, username)));
+    }
+
+
+    public void register(String name, String username, String email, String password, String confirmPassword) {
+        appUserRepository.save(new AppUser(name,username,email,password,confirmPassword,
+                AppUserRole.USER,false,true));
     }
 }

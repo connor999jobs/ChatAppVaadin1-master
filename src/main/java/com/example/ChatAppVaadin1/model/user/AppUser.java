@@ -14,14 +14,13 @@ import java.util.Collections;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @PasswordMatches
-public class AppUser implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AppUser extends IdFactory implements UserDetails {
 
-    private Long id;
+
     private String name;
     private String username;
     @Email
@@ -34,6 +33,8 @@ public class AppUser implements UserDetails {
     private AppUserRole appUserRole;
     private Boolean locked;
     private Boolean enabled;
+
+
 
 
     @Override
