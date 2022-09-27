@@ -52,21 +52,26 @@ public class RegisterView extends Composite {
     }
 
     private void register(String name, String username, String email, String password, String confirmPassword) {
-        if (name.isEmpty()){
-            Notification.show("Enter a name");
-        }
-        else if (username.trim().isEmpty()) {
-            Notification.show("Enter a username");
-        } else if (email.isEmpty()) {
-            Notification.show("Enter a email");
-        } else if (password.isEmpty()) {
-            Notification.show("Enter a password");
-        }
-        else if (!password.equals(confirmPassword)) {
-            Notification.show("Passwords don't match");
-        } else {
-            userService.register(name,username, email, password, confirmPassword);
+        AppUser newUser = new AppUser();
+//        if (newUser.getName().isEmpty()) {
+//            Notification.show("Enter a name");
+//        } else if (newUser.getUsername().trim().isEmpty()) {
+//            Notification.show("Enter a username");
+//        } else if (newUser.getEmail().isEmpty()) {
+//            Notification.show("Enter a email");
+//        } else if (newUser.getPassword().isEmpty()) {
+//            Notification.show("Enter a password");
+//        } else if (!newUser.getPassword().equals(newUser.getMatchingPassword())) {
+//            Notification.show("Passwords don't match");
+//        } else {
+            newUser.setName(name);
+            newUser.setUsername(username);
+            newUser.setEmail(email);
+            newUser.setPassword(password);
+            newUser.setMatchingPassword(confirmPassword);
+            userService.registerNewUserAccount(newUser);
+//            userService.register(name,username, email, password, confirmPassword);
             Notification.show("Success.");
         }
     }
-}
+//}

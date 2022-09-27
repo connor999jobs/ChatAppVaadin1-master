@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Stream;
 
 public final class SecurityUtils {
-
     private SecurityUtils() {
         // Util methods only
     }

@@ -31,16 +31,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 
 
 
+
     private final AppUserService userService;
 
     @Autowired
-    public SecurityConfig(AppUserService userService) {
+    public SecurityConfig(@Lazy AppUserService userService) {
         this.userService = userService;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userService) ;
     }
 
     /**
@@ -69,17 +70,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
                 .loginPage(LOGIN_URL).permitAll()
                 .loginProcessingUrl(LOGIN_PROCESSING_URL)
                 .failureUrl(LOGIN_FAILURE_URL)
-                .and().formLogin().defaultSuccessUrl(REGISTRATION_URL).permitAll()
 
+                // Configure the registration page.
+//                .and().formLogin().defaultSuccessUrl(REGISTRATION_URL, true)
 
                 // Configure logout
                 .and().logout().logoutSuccessUrl(LOGOUT_SUCCESS_URL);
-
-
     }
-
-
-
     /**
      * Allows access to static resources, bypassing Spring Security.
      */
@@ -109,13 +106,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
                 "/h2-console/**");
     }
 
-
-
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-
 }

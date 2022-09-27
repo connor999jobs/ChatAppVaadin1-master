@@ -17,5 +17,4 @@ public abstract class IdFactory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 }

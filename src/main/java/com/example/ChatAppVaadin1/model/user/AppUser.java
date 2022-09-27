@@ -19,23 +19,16 @@ import java.util.Collections;
 @Entity
 @PasswordMatches
 public class AppUser extends IdFactory implements UserDetails {
-
-
     private String name;
     private String username;
     @Email
     private String email;
-
-
     private String password;
     private String matchingPassword;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
     private Boolean locked;
     private Boolean enabled;
-
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

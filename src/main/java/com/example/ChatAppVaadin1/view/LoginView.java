@@ -39,7 +39,8 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         setJustifyContentMode(JustifyContentMode.CENTER);
         loginForm.setAction("login");
 
-        add(new H1("Vaadin Chat Application"), loginForm , new RouterLink("Register", RegisterView.class));
+        add(new H1("Vaadin Chat Application"), loginForm);
+        add(new RouterLink("Register", RegisterView.class));
     }
 
     @Override
