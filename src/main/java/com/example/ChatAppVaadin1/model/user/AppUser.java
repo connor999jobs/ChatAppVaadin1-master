@@ -7,8 +7,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -17,13 +21,20 @@ import java.util.Collections;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@PasswordMatches
 public class AppUser extends IdFactory implements UserDetails {
+
+    @NotEmpty
+    @Size(min = 2, max = 20)
     private String name;
+    @NotEmpty
+    @Size(min = 2, max = 20)
     private String username;
+
     @Email
     private String email;
+    @NotEmpty
     private String password;
+    @NotEmpty
     private String matchingPassword;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;

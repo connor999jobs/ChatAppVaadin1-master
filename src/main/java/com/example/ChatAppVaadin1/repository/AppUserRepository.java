@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Repository
-@Transactional(readOnly = true)
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
 //    @Query("SELECT username from AppUser where username = ?1")

@@ -112,7 +112,7 @@ public class MainView extends VerticalLayout {
 
     private String renderRow(Storage.ChatMessage message) {
         if (message.getName().isEmpty()) {
-            return Processor.process(String.format("_User **%s** is just joined the chat!_", message.getName()));
+            return Processor.process(String.format("_User **%s** is just joined the chat!_", message.getMessage()));
         } else {
             return Processor.process(String.format("**%s**: %s", message.getName(), message.getMessage()));
         }
