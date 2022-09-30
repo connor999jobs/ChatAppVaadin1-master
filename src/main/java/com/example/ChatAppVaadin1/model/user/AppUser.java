@@ -2,7 +2,6 @@ package com.example.ChatAppVaadin1.model.user;
 
 
 import lombok.*;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +15,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
+
+/**   AppUser model for registration. **/
 
 @Getter
 @Setter

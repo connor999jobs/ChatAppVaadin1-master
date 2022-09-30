@@ -1,7 +1,5 @@
 package com.example.ChatAppVaadin1.config;
 
-
-
 import com.example.ChatAppVaadin1.security.SecurityUtils;
 import com.example.ChatAppVaadin1.view.ActivationView;
 import com.example.ChatAppVaadin1.view.LoginView;
@@ -11,6 +9,12 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.server.ServiceInitEvent;
 import com.vaadin.flow.server.VaadinServiceInitListener;
 import org.springframework.stereotype.Component;
+
+/**
+ * In serviceInit(), listen for the initialization of the UI (the internal root component in Vaadin)
+ * and then add a listener before every view transition.
+ * In beforeEnter(), reroute all requests to the login, if the user is not logged in.
+ **/
 
 @Component
 public class ConfigureUIServiceInitListener implements VaadinServiceInitListener {
@@ -33,7 +37,7 @@ public class ConfigureUIServiceInitListener implements VaadinServiceInitListener
     }
 
     private void beforeEnterActivation(BeforeEnterEvent event) {
-        if (ActivationView.class.equals(event.getNavigationTarget())) {
+        if (ActivationView.class.equals(event.getNavigationTarget()) && SecurityUtils.isUserLoggedIn()) {
             event.rerouteTo(ActivationView.class);
         }
     }

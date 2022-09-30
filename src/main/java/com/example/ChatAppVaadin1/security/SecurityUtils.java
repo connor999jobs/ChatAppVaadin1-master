@@ -9,6 +9,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Stream;
 
+/**
+ * SecurityUtils for
+ * isFrameworkInternalRequest() determines if a request is internal to Vaadin.
+ * isUserLoggedIn() checks if the current user is logged in.
+ * */
+
 public final class SecurityUtils {
     private SecurityUtils() {
         // Util methods only

@@ -8,6 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Component;
 
+/**
+ * In serviceInit(), listen for the initialization of the UI (the internal root component in Vaadin)
+ * and then add a listener before every view transition.
+ * In authenticateNavigation(), reroute all requests to the login, if the user is not logged in.
+ **/
+
 @Component
 public class SecurityService {
 

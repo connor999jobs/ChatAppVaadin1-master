@@ -8,17 +8,24 @@ import com.vaadin.flow.shared.Registration;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
-
-import java.io.Serializable;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+/**A chat model that consists of Queue<ChatMessage> and ComponentEventBus.
+ ChatMessage contains the username and the message to be sent.
+ ComponentEventBus executes
+ Your component class can provide an event-handling API that uses the event bus provided by the Component base class.
+ The event bus supports:
+ event classes that extend ComponentEvent, and
+ listeners of the type ComponentEventListener<EventType>.**/
+
 
 @Component
 public class Storage {
 
     @Getter
-    private Queue<ChatMessage> messages = new ConcurrentLinkedQueue<>();
-    private ComponentEventBus eventBus = new ComponentEventBus(new Div());
+    private final Queue<ChatMessage> messages = new ConcurrentLinkedQueue<>();
+    private final ComponentEventBus eventBus = new ComponentEventBus(new Div());
 
 
     public static class ChatEvent extends ComponentEvent<Div>{

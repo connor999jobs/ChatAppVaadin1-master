@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+
+/** Abstract class for creating Id for AppUser **/
 @MappedSuperclass
 @RequiredArgsConstructor
 @Getter

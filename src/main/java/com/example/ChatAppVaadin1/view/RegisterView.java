@@ -15,28 +15,26 @@ import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.security.PermitAll;
+
+/**
+ * View for Register new User
+ */
 
 
 @Route("register")
+@PermitAll
 public class RegisterView extends Composite {
-
-    private static final String LOGIN_PAGE = "/login";
-
     private final AppUserService userService;
     private final BeanValidationBinder<AppUser> binder = new BeanValidationBinder<>(AppUser.class);
-
-
     @Autowired
     public RegisterView(AppUserService userService ) {
         this.userService = userService;
-
     }
-
     @Override
     protected Component initContent() {
-
         TextField name = new TextField("Name");
         name.setPlaceholder("Enter your name");
         name.setClearButtonVisible(true);
@@ -66,7 +64,6 @@ public class RegisterView extends Composite {
                 (new EmailValidator( "This doesn't look like a valid email address"))
                 .bind(AppUser::getEmail, AppUser::setEmail);
 
-
         PasswordField password = new PasswordField("Password");
         password.setPlaceholder("Enter your password");
         password.setClearButtonVisible(true);
@@ -75,7 +72,6 @@ public class RegisterView extends Composite {
         binder.forField(password).withValidator(n -> n.length() >=2,
                         "Password must contain at least two characters")
                 .bind(AppUser::getPassword, AppUser::setPassword);
-
 
         PasswordField confirmPassword = new PasswordField("Confirm password");
         confirmPassword.setPlaceholder("Confirm your password");

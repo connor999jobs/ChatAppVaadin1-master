@@ -1,7 +1,6 @@
 package com.example.ChatAppVaadin1.view;
 
 
-import com.example.ChatAppVaadin1.exeption.AuthException;
 import com.example.ChatAppVaadin1.service.AppUserService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
@@ -14,15 +13,20 @@ import com.vaadin.flow.router.RouterLink;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 import java.util.Map;
 
-@Route("activate")
-public class ActivationView extends Composite<Component> implements BeforeEnterObserver {
+/**
+ * Activation view. After register new User, you need verification him.
+ * You will receive an email with a link to activate your account
+ * */
 
+@Route("activate")
+@PermitAll
+public class ActivationView extends Composite<Component> implements BeforeEnterObserver {
     private VerticalLayout layout;
     private final AppUserService service;
-
     @Autowired
     public ActivationView(AppUserService service) {
         this.service = service;

@@ -8,6 +8,10 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 
+/**
+ * Registration view, for register new User, and save him to database.
+ */
+
 @Route("login")
 @PageTitle("Login | Vaadin Chat Application")
 public class LoginView extends VerticalLayout implements BeforeEnterObserver {

@@ -18,6 +18,11 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.shared.Registration;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
+/**
+ * Main view. After success login, you can use Chat Application
+ */
+
 @Route("")
 @Push
 public class MainView extends VerticalLayout {
@@ -38,7 +43,6 @@ public class MainView extends VerticalLayout {
     }
 
     private void buildLogin() {
-
         H1 logo = new H1("Vaadin CRM");
         login = new VerticalLayout() {{
             TextField field = new TextField();
@@ -56,7 +60,6 @@ public class MainView extends VerticalLayout {
                     }}
             );
         }};
-
         Button logout = new Button("Log out", e -> securityService.logout());
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo, logout);
         header.expand(logo);
@@ -101,8 +104,6 @@ public class MainView extends VerticalLayout {
         if (getUI().isPresent()) {
             UI ui = getUI().get();
             ui.getSession().lock();
-//           ui.getPage().executeJs("$0._scrollToIndex($1)",grid, storage.size());
-
             ui.beforeClientResponse(grid, ctx -> grid.scrollToEnd());
             ui.access(() -> grid.getDataProvider().refreshAll());
             ui.getSession().unlock();
