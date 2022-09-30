@@ -1,12 +1,13 @@
 package com.example.ChatAppVaadin1.model.user;
 
 
-import com.example.ChatAppVaadin1.validation.password.PasswordMatches;
 import lombok.*;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,8 +19,8 @@ import java.util.Collections;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class AppUser extends IdFactory implements UserDetails {
 
@@ -40,6 +41,10 @@ public class AppUser extends IdFactory implements UserDetails {
     private AppUserRole appUserRole;
     private Boolean locked;
     private Boolean enabled;
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

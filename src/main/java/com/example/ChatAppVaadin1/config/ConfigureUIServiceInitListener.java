@@ -3,6 +3,7 @@ package com.example.ChatAppVaadin1.config;
 
 
 import com.example.ChatAppVaadin1.security.SecurityUtils;
+import com.example.ChatAppVaadin1.view.ActivationView;
 import com.example.ChatAppVaadin1.view.LoginView;
 import com.example.ChatAppVaadin1.view.RegisterView;
 import com.vaadin.flow.component.UI;
@@ -17,7 +18,9 @@ public class ConfigureUIServiceInitListener implements VaadinServiceInitListener
     public void serviceInit(ServiceInitEvent event) {
         event.getSource().addUIInitListener(uiEvent -> {
             final UI ui = uiEvent.getUI();
+            ui.addBeforeEnterListener(this::beforeEnterActivation);
             ui.addBeforeEnterListener(this::beforeEnter);
+
         });
     }
 
@@ -26,6 +29,12 @@ public class ConfigureUIServiceInitListener implements VaadinServiceInitListener
                 && !RegisterView.class.equals(event.getNavigationTarget())
                 && !SecurityUtils.isUserLoggedIn()) {
             event.rerouteTo(LoginView.class);
+        }
+    }
+
+    private void beforeEnterActivation(BeforeEnterEvent event) {
+        if (ActivationView.class.equals(event.getNavigationTarget())) {
+            event.rerouteTo(ActivationView.class);
         }
     }
 }

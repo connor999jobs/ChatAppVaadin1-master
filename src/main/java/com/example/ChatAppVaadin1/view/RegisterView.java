@@ -13,13 +13,16 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Route("register")
 public class RegisterView extends Composite {
 
+    private static final String LOGIN_PAGE = "/login";
 
     private final AppUserService userService;
     private final BeanValidationBinder<AppUser> binder = new BeanValidationBinder<>(AppUser.class);
@@ -91,7 +94,8 @@ public class RegisterView extends Composite {
                         email.getValue(),
                         password.getValue(),
                         confirmPassword.getValue()
-                ))
+                )),
+                new RouterLink("Back to Login page",LoginView.class)
         );
     }
 

@@ -27,6 +27,11 @@
 
 
 	<dependencies>
+		<dependency>
+			<groupId>com.sendgrid</groupId>
+			<artifactId>sendgrid-java</artifactId>
+			<version>4.0.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.postgresql</groupId>
